@@ -9,7 +9,7 @@ const configPath = path.join(
   'config.json'
 );
 
-export async function ask(args) {
+export async function chat(args) {
   const rl = readline.createInterface({
     input: process.stdin,
     output: process.stdout,
