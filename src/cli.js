@@ -2,6 +2,7 @@
 import minimist from 'minimist';
 
 import { ask } from './routes/ask';
+import { chat } from './routes/chat';
 import { draw } from './routes/draw';
 import { help } from './routes/help';
 import { setup } from './routes/setup';
@@ -26,6 +27,10 @@ export async function cli(argsArray) {
 
     case 'ask':
       ask(args);
+      break;
+
+    case 'chat':
+      chat(args);
       break;
 
     case 'draw':
