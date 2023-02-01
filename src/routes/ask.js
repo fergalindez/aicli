@@ -16,9 +16,7 @@ export async function ask(args) {
     config = require(configPath);
   } catch (e) {
     console.log(
-      chalk.red(
-        "No API key found. Use 'aicli setup' to configure the API key."
-      )
+      chalk.red("No API key found. Use 'aicli setup' to configure the API key.")
     );
     return;
   }
@@ -51,37 +49,56 @@ export async function ask(args) {
         name: 'question',
         message: chalk.cyanBright(`What do you want to do?`),
         choices: [
-          'generate, ask or complete',
-          'check or refactor a code (a text editor will open to write the code and you have to save and close it to get the response)',
+          'generate, ask or complete anything',
+          'check, convert or refactor a code piece',
         ],
       },
     ])
     .then(async (template) => {
-      if (template.question === 'generate, ask or complete') {
+      if (template.question.includes('generate')) {
         await inquirer
           .prompt([
             {
               type: 'input',
               name: 'completition',
-              message: chalk.cyanBright(`Input you question or instruction:`),
+              message: chalk.cyanBright(`Enter you question or instruction:`),
             },
           ])
           .then(async (templateCompletition) => {
             openaiRequest(templateCompletition.completition);
           });
-      } else if (template.question.includes('check or refactor a code')) {
-        const dbFile = 'lol.txt';
-        const editorSpawn = require('child_process').spawn('nano', [dbFile], {
-          stdio: 'inherit',
-          detached: true,
-        });
+      } else if (template.question.includes('code piece')) {
+        await inquirer
+          .prompt([
+            {
+              type: 'input',
+              name: 'completition',
+              message: chalk.cyanBright(
+                `Enter you question or instruction, after that your default text editor would opened to paste the code:`
+              ),
+            },
+          ])
+          .then(async (templateCompletition) => {
+            const dbFile = 'lol.txt';
+            const editor = process.env.EDITOR || 'vi';
+            const editorSpawn = require('child_process').spawn(
+              editor,
+              [dbFile],
+              {
+                stdio: 'inherit',
+                detached: true,
+              }
+            );
 
-        editorSpawn.on('exit', async function (data) {
-          const fileContent = readFileSync(dbFile, 'utf-8');
-          unlinkSync(dbFile);
+            editorSpawn.on('exit', async function (data) {
+              const fileContent = readFileSync(dbFile, 'utf-8');
+              unlinkSync(dbFile);
 
-          openaiRequest(`Refactor or check this code: ${fileContent}`);
-        });
+              openaiRequest(
+                `${templateCompletition.completition}: ${fileContent}`
+              );
+            });
+          });
       }
     });
 }

@@ -1,5 +1,4 @@
 #!/usr/bin/env node
-
 import minimist from 'minimist';
 
 import { ask } from './routes/ask';

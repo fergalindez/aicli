@@ -15,7 +15,7 @@ export async function setup() {
       {
         type: 'input',
         name: 'apiKey',
-        message: chalk.cyanBright.bold(`Por favor, ingrese su API Key:`),
+        message: chalk.cyanBright.bold(`Please enter your API Key:`),
       },
     ])
     .then((template) => {
@@ -24,6 +24,6 @@ export async function setup() {
         fs.writeFileSync(configPath, JSON.stringify(config));
       });
 
-      console.log(chalk.green('API key seve successfuly in ~/.aicli!'));
+      console.log(chalk.green('API key seve successfuly in ~/.aicli'));
     });
 }

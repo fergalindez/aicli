@@ -2,6 +2,7 @@ import { Configuration, OpenAIApi } from 'openai';
 import chalk from 'chalk';
 import inquirer from 'inquirer';
 import path from 'path';
+import open from 'open';
 
 const configPath = path.join(
   process.env.HOME || process.env.USERPROFILE,
@@ -15,9 +16,7 @@ export async function draw(args) {
     config = require(configPath);
   } catch (e) {
     console.log(
-      chalk.red(
-        "No API key found. Use 'aicli setup' to configure the API key."
-      )
+      chalk.red("No API key found. Use 'aicli setup' to configure the API key.")
     );
     return;
   }
@@ -49,5 +48,6 @@ export async function draw(args) {
 
       const subCmd = args._[0] === 'ask' ? args._[1] : args._[0];
       console.log(menus[subCmd] || menus.main);
+      open(url);
     });
 }
