@@ -24,6 +24,6 @@ export async function setup() {
         fs.writeFileSync(configPath, JSON.stringify(config));
       });
 
-      console.log(chalk.green('API key seve successfuly!'));
+      console.log(chalk.green('API key seve successfuly in ~/.aicli!'));
     });
 }

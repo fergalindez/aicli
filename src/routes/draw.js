@@ -16,7 +16,7 @@ export async function draw(args) {
   } catch (e) {
     console.log(
       chalk.red(
-        "No API key found. Use 'gptcli setup' to configure the API key."
+        "No API key found. Use 'aicli setup' to configure the API key."
       )
     );
     return;
