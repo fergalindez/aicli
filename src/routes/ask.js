@@ -6,7 +6,7 @@ import { readFileSync, unlinkSync } from 'fs';
 
 const configPath = path.join(
   process.env.HOME || process.env.USERPROFILE,
-  '.openai',
+  '.aicli',
   'config.json'
 );
 
@@ -17,7 +17,7 @@ export async function ask(args) {
   } catch (e) {
     console.log(
       chalk.red(
-        "No API key found. Use 'gptcli setup' to configure the API key."
+        "No API key found. Use 'aicli setup' to configure the API key."
       )
     );
     return;

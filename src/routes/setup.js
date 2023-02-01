@@ -5,7 +5,7 @@ import path from 'path';
 
 const configPath = path.join(
   process.env.HOME || process.env.USERPROFILE,
-  '.openai',
+  '.aicli',
   'config.json'
 );
 
